@@ -15,3 +15,8 @@ True
 1
 False
 """
+num_day = int(input("Введите чило "))
+if (num_day == 6 or num_day == 7):
+    print(True)
+else:
+    print(False)
