@@ -22,6 +22,3 @@ print(sum)
 # number = input('Введите число : ')
 # summa = sum([int(num) for num in number if num.isdigit()])
 # print(summa)
-
-
-
