@@ -14,3 +14,14 @@
 2
 10
 """
+
+num = int(input('Введите  число N = '))
+print(bin(num))
+
+num_b = ''
+
+while num > 0:
+    num_b = str(num % 2) + num_b
+    num = num // 2
+
+print(int(num_b))
