@@ -16,7 +16,10 @@ def print_board(array: list):
 
 
 def check(array, player):  # доделать
-    pass
+    #  if lst == [['x', ' ', ' '], ['x', ' ', ' '], ['x', ' ', ' ']]:
+    #     player='X'
+    #  elif lst == [[' ', 'x', ' '], ['x', ' ', ' '], ['x', ' ', ' ']]:   
+     pass
 
 if __name__ == '__main':
     lst = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
