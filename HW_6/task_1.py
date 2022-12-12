@@ -6,3 +6,12 @@
 Ввод: значение типа <str>
 Вывод: значение числового типа данных
 """
+message = input('введите математическое выражение')
+# if message.startswith("!число"):
+split = message.split(' ', 1)
+a = []
+b = []
+plus = split[1].split('+')
+a.append(plus[0])
+b.append(plus[1])
+print(int(a[0]) + int(b[0]))
