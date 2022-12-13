@@ -75,7 +75,7 @@ while N > 0:
             turn = not turn
             player = players[turn]
     else:
-        count_k = int(input('введите колличество конфет:  '))
+        count_k = int(input('введите количество конфет:  '))
         N = N - count_k
         print(f'осталось {N} конфет')
         if N:

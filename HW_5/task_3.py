@@ -10,8 +10,8 @@ def print_board(array: list):
     print(*range(len(array)), sep=' | ', end=' | \n')
     print('-' * 13)
     for i, line in enumerate(array):
-        print('|', end='')
-        print(*line, sep='|', end=f'| {i} \n')
+        print('| ', end='')
+        print(*line, sep=' | ', end=f' | {i} \n')
         print('-' * 13)
 
 
@@ -41,7 +41,7 @@ if __name__ == '__main__':
             'Укажите строку и столбец через пробел: ').split()]
         os.system('cls')
         lst[row][col] = player
-        print(lst)
+        # print(lst)
         print_board(lst)
         if not check(lst):
             turn = not turn
