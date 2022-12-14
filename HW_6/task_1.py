@@ -13,56 +13,97 @@
 #     print(float(a) + float(b))
 
 
-def find(exp, sech_operand):
-    ind_start = 0
-    ind_finish = 0
-    ind_oper = 0
-    operands_full = ['*', '/', '-', '+']
-    operands = ['*', '/', '-', '+']
-    for op in sech_operand:
-        operands.remove(op)
-    found = False
-    for i, sim in enumerate(exp):
-        if i == 0 and sim == '-':
-            continue
-        if not found and sim in operands:
-            ind_start = i + 1
-        elif found and sim in operands_full:
-            ind_finish = i - 1
-            return ind_start, ind_finish, ind_oper
-        elif sim in sech_operand:
-            found = True
-            ind_oper = i
-            ind_finish = len(exp) - 1
-    return ind_start, ind_finish, ind_oper
+def calk(exp: str) -> str:
+    if isdigit(exp):
+        return exp
 
-
-def calk(exp):
-    if '*' in exp or '/' in exp:
-        ind_s, ind_f, ind_o = find(exp, ['*', '/'])
-        if exp[ind_o] == '*':
-            exp = exp[0:ind_s] + str(float(exp[ind_s:ind_o])
-                                     * float(exp[ind_o + 1:ind_f + 1])) + exp[ind_f+1:]
-            exp = calk(exp)
-        elif exp[ind_o] == '/':
-            exp = exp[0:ind_s] + str(float(exp[ind_s:ind_o]) /
-                                     float(exp[ind_o + 1:ind_f + 1])) + exp[ind_f+1:]
+    if "(" in exp:
+        ind_s, ind_f = find_bracket(exp)
+        if ind_s != ind_f:
+            exp = exp[0:ind_s] + calk(exp[ind_s + 1:ind_f]) + exp[ind_f + 1:]
             exp = calk(exp)
 
-    if '+' in exp or '-' in exp:
-        ind_s, ind_f, ind_o = find(exp, ['+', '-'])
-        if exp[ind_o] == '+':
-            exp = exp[0:ind_s] + str(float(exp[ind_s:ind_o]) +
-                                     float(exp[ind_o + 1:ind_f + 1])) + exp[ind_f+1:]
+    if "*" in exp or "/" in exp:
+        ind_s, ind_f, ind_o = find_expression(exp, ["*", "/"])
+        if exp[ind_o] == "*":
+            exp = (exp[0:ind_s] + str(float(exp[ind_s:ind_o]) *
+                   float(exp[ind_o + 1:ind_f + 1])) + exp[ind_f + 1:])
             exp = calk(exp)
-        elif exp[ind_o] == '-':
-            exp = exp[0:ind_s] + str(float(exp[ind_s:ind_o]) -
-                                     float(exp[ind_o + 1:ind_f + 1])) + exp[ind_f+1:]
+        elif exp[ind_o] == "/":
+            exp = exp[0:ind_s] + \
+                str(float(exp[ind_s:ind_o]) / float(exp[ind_o + 1:ind_f + 1])) + \
+                exp[ind_f + 1:]
             exp = calk(exp)
+
+    if isdigit(exp):
+        return exp
+
+    if "+" in exp or "-" in exp:
+        ind_s, ind_f, ind_o = find_expression(exp, ["+", "-"])
+        if exp[ind_o] == "+":
+            exp = (exp[0:ind_s] + str(float(exp[ind_s:ind_o]) +
+                   float(exp[ind_o + 1:ind_f + 1])) + exp[ind_f + 1:])
+            exp = calk(exp)
+        elif exp[ind_o] == "-":
+            exp = exp[0:ind_s] + \
+                str(float(exp[ind_s:ind_o]) - float(exp[ind_o + 1:ind_f + 1])) + \
+                exp[ind_f + 1:]
+            exp = calk(exp)
+
     return exp
 
-if __name__ == '__main__':
-    exp = '3*4/2'
-    print(calk(exp))
 
-   
+def calculator(data: str) -> float:
+    return float(calk(data))
+
+
+def isdigit(data):
+    try:
+        float(data)
+    except ValueError:
+        return False
+    return True
+
+
+def find_expression(data: str, search_operand: list):
+    ind_s = 0
+    ind_f = 0
+    ind_o = 0
+    operands_fool = ["+", "-", "/", "*"]
+    operands = ["+", "-", "/", "*"]
+    for op in search_operand:
+        operands.remove(op)
+    found = False
+
+    for i, sym in enumerate(data):
+        if i == 0 and sym == "-":
+            continue
+        if not found and sym in operands:
+            ind_s = i + 1
+        elif found and sym in operands_fool:
+            ind_f = i - 1
+            return ind_s, ind_f, ind_o
+
+        elif sym in search_operand:
+            found = True
+            ind_o = i
+            ind_f = len(data) - 1
+
+    return ind_s, ind_f, ind_o
+
+
+def find_bracket(data: str):
+    ind_s = 0
+    ind_f = 0
+    for i, sym in enumerate(data):
+        if sym == "(":
+            ind_s = i
+        elif sym == ")":
+            ind_f = i
+            return ind_s, ind_f
+    return ind_s, ind_f
+
+
+if __name__ == '__main__':
+    exp = input('введите выражение ')
+    print(calculator(exp))

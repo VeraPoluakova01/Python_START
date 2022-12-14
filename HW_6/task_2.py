@@ -14,39 +14,32 @@
 [1, 2, 5, 3, 10]
 """
 from random import randint
-# список чисел, которые не повторяются в заданном списке [2, 10]
 
-# number = int(input('Введите натуральное число N = '))
-#my_list = [randint(0, 30) for _ in range(number)]
-my_list = [1, 2, 3, 5, 1, 5, 3, 10]
-print(my_list)
+number = int(input('Введите натуральное число N = '))
+my_list = [randint(0, 30) for _ in range(number)]
+
+# my_list = [1, 2, 3, 5, 1, 5, 3, 10]
+print(f'исходный список:  \n{my_list}')
 my_list_sort = []
 my_list_sort = [i for i in my_list if (my_list.count(i)) == 1]
 print(my_list_sort)
 
 
 
-# #список повторяемых чисел [1, 3, 5]
-# i = 0
-# for i in my_list:
-#     k = (my_list.count(i))
-#     if k == 1:
-#         my_list_sort.append(i)
+ #список повторяемых чисел [1, 3, 5]
 
 my_list_sort_c = [i for i in my_list if (my_list.count(i)) > 1]
-# my_list_sort_c1 = [my_list_sort_c.remove(i) for i in my_list_sort_c if (my_list_sort_c.count(i)) > 1]
-i = 0
+temp = [] 
 for i in my_list_sort_c:
-    k = (my_list_sort_c.count(i))
-    if k > 1:
-        my_list_sort_c.remove(i)
-print(my_list_sort_c) 
+       if i not in temp: temp.append(i) 
+       my_list_sort_c = temp 
+print(temp)
 
-# список всех  чисел без повторения [1, 2, 5, 3, 10]
-i = 0
-for i in my_list:
+# список всех  чисел без повторения [1, 2, 3, 5, 10]
 
-    k = (my_list.count(i))
-    if k > 1:
-        my_list.remove(i)
-print(my_list)
+# my_list = [1, 2, 3, 5, 1, 5, 3, 10]
+temp = [] 
+for x in my_list: 
+     if x not in temp: temp.append(x) 
+     my_list = temp 
+print(temp)
